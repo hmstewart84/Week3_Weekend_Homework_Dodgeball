@@ -17,7 +17,7 @@ class Team
   end
 
   def match()
-    sql = "SELECT * FROM matches WHERE id = #{@id};"
+    sql = "SELECT matches.* FROM matches WHERE home_team_id = #{@id} OR away_team_id = #{@id};"
     match = SqlRunner.run( sql )
     result = match.map { |match| Match.new( match ) }
     return result

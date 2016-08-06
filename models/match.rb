@@ -19,12 +19,12 @@ class Match
     @id = match['id'].to_i
   end
 
-  def team()
-    sql = "SELECT * FROM teams WHERE id = #{@team.id}"
-    team = SqlRunner.run( sql ).first
-    team = Team.new(team)
-    return result
-  end
+  def teams()
+      sql = "SELECT teams.* FROM teams WHERE id = #{@away_team_id} OR id = #{@home_team_id};"
+      teams = SqlRunner.run( sql )
+      result = teams.map { |team| Team.new(team) }
+      return result
+    end
 
   def self.all()
     sql = "SELECT * FROM matches"
